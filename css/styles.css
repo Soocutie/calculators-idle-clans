@@ -20,6 +20,39 @@ html {
     border-color: #ff4444;
 }
 
+.input-wrapper {
+    position: relative;
+    width: 100%;
+}
+
+.info-btn {
+    position: absolute;
+    right: -30px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: help;
+    font-size: 1rem;
+    padding: 5px;
+}
+
+.info-btn:hover::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    bottom: 100%;
+    right: 0;
+    padding: 5px 10px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    z-index: 1000;
+    animation: fadeIn 0.2s ease-out;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: var(--background-dark);
@@ -148,6 +181,8 @@ h1 {
     position: relative;
     margin-bottom: 25px;
     width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 
 label {
@@ -173,10 +208,11 @@ label {
     outline: none;
 }
 
-.input-icon {
+.input-wrapper .input-icon {
     position: absolute;
     right: 15px;
-    top: 42px;
+    top: 50%;
+    transform: translateY(-50%);
     color: var(--primary-color);
 }
 
@@ -386,12 +422,11 @@ kbd {
 }
 
 @media (max-width: 480px) {
-    .container {
-        margin: 10px;
-        padding: 20px;
+    .info-btn {
+        right: -25px;
     }
     
-    h1 {
-        font-size: 1.5rem;
+    .input-wrapper {
+        margin-right: 25px;
     }
 }

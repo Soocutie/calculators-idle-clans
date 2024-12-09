@@ -51,13 +51,18 @@
             <form id="calculator-form" onsubmit="return calculate(event);">
                 <div class="input-group">
                     <label for="kogus">Amount:</label>
-                    <input type="number" id="kogus" class="input" placeholder="Enter amount" required>
+                    <input type="text" id="kogus" class="input" placeholder="Enter amount" required>
                     <i class="fa-solid fa-hashtag input-icon"></i>
                 </div>
                 <div class="input-group">
                     <label for="aeg">Seconds per item:</label>
-                    <input type="text" id="aeg" class="input" placeholder="Enter seconds" required>
-                    <i class="fa-solid fa-clock input-icon"></i>
+                    <div class="input-wrapper">
+                        <input type="text" id="aeg" class="input" placeholder="Enter seconds" required>
+                        <i class="fa-solid fa-clock input-icon"></i>
+                        <button type="button" class="info-btn" data-tooltip="Valid formats: 5 or 5.3 or 5,3">
+                            <i class="fa-solid fa-circle-question"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="input-group">
                     <label for="timeFormat">Time Format:</label>
@@ -105,8 +110,13 @@
                 </div>
                 <div class="input-group">
                     <label for="currentXP">Current XP:</label>
-                    <input type="number" id="currentXP" class="input" placeholder="Enter current XP" required>
-                    <i class="fa-solid fa-xmark input-icon"></i>
+                    <div class="input-wrapper">
+                        <input type="text" id="currentXP" class="input" placeholder="Enter current XP" required>
+                        <i class="fa-solid fa-xmark input-icon"></i>
+                        <button type="button" class="info-btn" data-tooltip="Valid formats: 1000 or 1000.5 or 1000,5">
+                            <i class="fa-solid fa-circle-question"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="input-group">
                     <label for="goalLevel">Goal Level:</label>
@@ -118,8 +128,13 @@
                 </div>
                 <div class="input-group">
                     <label for="xpPerAction">XP per Action:</label>
-                    <input type="number" id="xpPerAction" class="input" placeholder="Enter XP per action" required>
-                    <i class="fa-solid fa-bolt input-icon"></i>
+                    <div class="input-wrapper">
+                        <input type="text" id="xpPerAction" class="input" placeholder="Enter XP per action" required>
+                        <i class="fa-solid fa-bolt input-icon"></i>
+                        <button type="button" class="info-btn" data-tooltip="Valid formats: 5 or 5.3 or 5,3">
+                            <i class="fa-solid fa-circle-question"></i>
+                        </button>
+                    </div>
                 </div>
                 <div class="button-group">
                     <button type="submit" class="calculate-btn">

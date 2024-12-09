@@ -118,13 +118,18 @@ function formatTime(totalSeconds) {
     }
 }
 
-// Add this function to validate the seconds input
-function validateSecondsInput(input) {
-    // Allow either whole numbers or numbers with comma
-    const regex = /^\d+$|^\d+,\d+$/;
-    return regex.test(input);
+function validateNumberInput(input) {
+    const regex = /^\d+$|^\d+[.,]\d+$/;
+    return regex.test(input.trim());
 }
 
+// Update the validateSecondsInput function to use the same validation
+function validateSecondsInput(input) {
+    // Use the same validation as validateNumberInput
+    return validateNumberInput(input);
+}
+
+// Update the calculate function to handle both separators
 function calculate(e) {
     if (e) e.preventDefault();
     
@@ -134,7 +139,7 @@ function calculate(e) {
 
         // Validate the seconds input format
         if (!validateSecondsInput(secondsInput)) {
-            showNotification('Please enter a valid number (e.g., 5 or 5,3)');
+            showNotification('Please enter a valid number (e.g., 5 or 5.3 or 5,3)');
             return false;
         }
 
@@ -251,9 +256,19 @@ function calculateLevelGoal(e) {
     
     try {
         const currentLevel = parseInt(document.getElementById('currentLevel').value);
-        const currentXP = parseInt(document.getElementById('currentXP').value);
+        const currentXPInput = document.getElementById('currentXP').value;
         const goalLevel = parseInt(document.getElementById('goalLevel').value);
-        const xpPerAction = parseFloat(document.getElementById('xpPerAction').value);
+        const xpPerActionInput = document.getElementById('xpPerAction').value;
+
+        // Validate inputs
+        if (!validateNumberInput(currentXPInput) || !validateNumberInput(xpPerActionInput)) {
+            showNotification('Please enter valid numbers (e.g., 5 or 5.3 or 5,3)');
+            return false;
+        }
+
+        // Convert inputs, replacing comma with dot if present
+        const currentXP = parseInt(currentXPInput.replace(',', '.'));
+        const xpPerAction = parseFloat(xpPerActionInput.replace(',', '.'));
 
         if (!currentLevel || !goalLevel || isNaN(xpPerAction) || xpPerAction <= 0 || isNaN(currentXP)) {
             showNotification('Please enter valid values');
@@ -308,7 +323,9 @@ function updateLevelHistoryList() {
     historyList.innerHTML = '';
     levelCalculationHistory.forEach((calc) => {
         const li = document.createElement('li');
-        li.innerHTML = `Level ${calc.currentLevel} (${calc.currentXP.toLocaleString()} XP) → Level ${calc.goalLevel} with ${calc.xpPerAction} XP/action = ${calc.result}`;
+        const formattedXPPerAction = typeof calc.xpPerAction === 'number' ? 
+            calc.xpPerAction.toString().replace('.', ',') : calc.xpPerAction;
+        li.innerHTML = `Level ${calc.currentLevel} (${calc.currentXP.toLocaleString()} XP) → Level ${calc.goalLevel} with ${formattedXPPerAction} XP/action = ${calc.result}`;
         li.onclick = () => {
             navigator.clipboard.writeText(calc.result)
                 .then(() => showNotification('Result copied!'));
@@ -379,10 +396,26 @@ document.addEventListener('DOMContentLoaded', () => {
             this.classList.remove('invalid');
         }
     });
+    // Add input validation for XP per Action field
+    const xpPerActionInput = document.getElementById('xpPerAction');
+    xpPerActionInput.addEventListener('input', function(e) {
+        const value = e.target.value;
+        if (value && !validateNumberInput(value)) {
+            this.classList.add('invalid');
+        } else {
+            this.classList.remove('invalid');
+        }
+    });
 
-    // Remove restrictive validation
-    document.getElementById('currentXP').addEventListener('input', function() {
-        // Allow free editing - no validation needed
+    // Add input validation for Current XP field
+    const currentXPInput = document.getElementById('currentXP');
+    currentXPInput.addEventListener('input', function(e) {
+        const value = e.target.value;
+        if (value && !validateNumberInput(value)) {
+            this.classList.add('invalid');
+        } else {
+            this.classList.remove('invalid');
+        }
     });
 
     // Keep basic goal level validation
