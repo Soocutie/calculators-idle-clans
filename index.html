@@ -51,8 +51,10 @@
             <form id="calculator-form" onsubmit="return calculate(event);">
                 <div class="input-group">
                     <label for="kogus">Amount:</label>
-                    <input type="text" id="kogus" class="input" placeholder="Enter amount" required>
-                    <i class="fa-solid fa-hashtag input-icon"></i>
+                    <div class="input-wrapper">
+                        <input type="text" id="kogus" class="input" placeholder="Enter amount" required>
+                        <i class="fa-solid fa-hashtag input-icon"></i>
+                    </div>
                 </div>
                 <div class="input-group">
                     <label for="aeg">Seconds per item:</label>
@@ -102,11 +104,13 @@
             <form id="level-calculator-form" onsubmit="return calculateLevelGoal(event);">
                 <div class="input-group">
                     <label for="currentLevel">Current Level:</label>
-                    <select id="currentLevel" class="input" required onchange="updateCurrentXP()">
-                        <option value="">Select Current Level</option>
-                        <!-- Options will be added via JavaScript -->
-                    </select>
-                    <i class="fa-solid fa-star input-icon"></i>
+                    <div class="input-wrapper">
+                        <select id="currentLevel" class="input" required onchange="updateCurrentXP()">
+                            <option value="">Select Current Level</option>
+                            <!-- Options will be added via JavaScript -->
+                        </select>
+                        <i class="fa-solid fa-star input-icon"></i>
+                    </div>
                 </div>
                 <div class="input-group">
                     <label for="currentXP">Current XP:</label>
@@ -120,11 +124,13 @@
                 </div>
                 <div class="input-group">
                     <label for="goalLevel">Goal Level:</label>
-                    <select id="goalLevel" class="input" required>
-                        <option value="">Select Goal Level</option>
-                        <!-- Options will be added via JavaScript -->
-                    </select>
-                    <i class="fa-solid fa-star input-icon"></i>
+                    <div class="input-wrapper">
+                        <select id="goalLevel" class="input" required>
+                            <option value="">Select Goal Level</option>
+                            <!-- Options will be added via JavaScript -->
+                        </select>
+                        <i class="fa-solid fa-star input-icon"></i>
+                    </div>
                 </div>
                 <div class="input-group">
                     <label for="xpPerAction">XP per Action:</label>
@@ -197,7 +203,7 @@
                 <li><kbd>Enter</kbd> - Calculate</li>
                 <li><kbd>Esc</kbd> - Reset</li>
             </ul>
-            <button class="modal-close" onclick="toggleHelp()">Close</button>
+            <button class="modal-close" onclick="event.preventDefault(); toggleHelp()">Close</button>
         </div>
     </div>
 
