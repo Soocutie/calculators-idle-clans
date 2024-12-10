@@ -417,15 +417,15 @@ kbd {
 }
 
 .input-wrapper select.input {
-    padding-right: 30px; /* Make space for the icon */
+    padding-right: 60px; 
 }
 
 .input-wrapper select.input + .input-icon {
     position: absolute;
-    right: 10px;
+    right: 30px;
     top: 50%;
     transform: translateY(-50%);
-    pointer-events: none; /* This prevents the icon from interfering with select clicks */
+    pointer-events: none; 
     z-index: 1;
 }
 
