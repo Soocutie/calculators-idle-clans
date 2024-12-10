@@ -28,7 +28,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    transition: background 0.5s ease, color 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 body.light-mode {
@@ -80,6 +80,34 @@ body.light-mode .reset-btn {
 body.light-mode .calculate-btn:hover,
 body.light-mode .reset-btn:hover {
     background: linear-gradient(145deg, #f0f0f0, #e6e6e6);
+}
+
+body.light-mode .theme-toggle {
+    color: var(--text-light);
+}
+
+body.light-mode .help-btn {
+    color: var(--text-light);
+}
+
+body.light-mode label {
+    color: var(--text-light);
+}
+
+body.light-mode h1 {
+    color: var(--text-light);
+}
+
+body.light-mode .history-title {
+    color: var(--text-light);
+}
+
+body.light-mode .input-icon {
+    color: var(--text-light);
+}
+
+body.light-mode .input-wrapper select.input {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
 }
 
 .container {
