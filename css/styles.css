@@ -417,12 +417,12 @@ kbd {
 }
 
 .input-wrapper select.input {
-    padding-right: 60px; 
+    padding-right: 80px; 
 }
 
 .input-wrapper select.input + .input-icon {
     position: absolute;
-    right: 30px;
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
     pointer-events: none; 
