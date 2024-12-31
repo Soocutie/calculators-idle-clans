@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Calculate time based on amount and duration per item">
     <meta name="keywords" content="time calculator, duration calculator">
     <meta property="og:title" content="Amount Time Calculator">
     <meta property="og:description" content="Calculate time based on amount and duration per item">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amount Time Calculator</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <!-- Notification -->
     <div id="notification" class="notification"></div>
 
+    <!-- Sidebar -->
     <div class="sidebar">
         <button class="sidebar-toggle" onclick="toggleSidebar()">
             <i class="fa-solid fa-chevron-right"></i>
@@ -25,22 +27,24 @@
             <button class="tab-button" onclick="switchTab(1)">
                 <i class="fa-solid fa-calculator"></i> Goal Calculator
             </button>
-            <button class="tab-button" onclick="switchTab(2)">
-                <i class="fa-solid fa-calculator"></i> Calculator 3
-            </button>
-            <button class="tab-button" onclick="switchTab(3)">
-                <i class="fa-solid fa-calculator"></i> Calculator 4
-            </button>
-            <button class="tab-button" onclick="switchTab(4)">
-                <i class="fa-solid fa-calculator"></i> Calculator 5
-            </button>
+        </div>
+        <hr />
+        <div class="animation-toggle">
+            <label for="animation-toggle">
+                <input type="checkbox" id="animation-toggle" onchange="toggleAnimation()" checked>
+                Enable Floating Animation
+            </label>
         </div>
     </div>
 
+    <!-- Main Container -->
     <div class="container">
+        <!-- Help Button -->
         <button class="help-btn" onclick="toggleHelp()">
             <i class="fa-solid fa-circle-question"></i>
         </button>
+
+        <!-- Theme Toggle -->
         <div class="theme-toggle" onclick="toggleTheme()">
             <i class="fa-solid fa-moon"></i>
         </div>
@@ -49,6 +53,7 @@
         <div class="calculator-content active" data-tab="0">
             <h1>Amount Time Calculator</h1>
             <form id="calculator-form" onsubmit="return calculate(event);">
+                <!-- Amount Input -->
                 <div class="input-group">
                     <label for="kogus">Amount:</label>
                     <div class="input-wrapper">
@@ -56,6 +61,7 @@
                         <i class="fa-solid fa-hashtag input-icon"></i>
                     </div>
                 </div>
+                <!-- Seconds Input -->
                 <div class="input-group">
                     <label for="aeg">Seconds per item:</label>
                     <div class="input-wrapper">
@@ -66,6 +72,7 @@
                         </button>
                     </div>
                 </div>
+                <!-- Time Format -->
                 <div class="input-group">
                     <label for="timeFormat">Time Format:</label>
                     <select id="timeFormat" class="input">
@@ -74,20 +81,26 @@
                         <option value="decimal">Decimal Hours (1.5h)</option>
                     </select>
                 </div>
+                <!-- Buttons -->
                 <div class="button-group">
                     <button type="submit" class="calculate-btn">
                         <i class="fa-solid fa-calculator"></i> Calculate (Enter)
                     </button>
                     <button type="button" class="reset-btn" onclick="resetForm()">
-                        <i class="fa-solid fa-rotate-left"></i> Reset (Esc)    
+                        <i class="fa-solid fa-rotate-left"></i> Reset (Esc)
                     </button>
                 </div>
             </form>
 
+            <!-- Result -->
             <div class="result-container">
                 <input type="text" id="result" class="input" readonly>
+                <p class="disclaimer">
+                    <small>Note: In-game UI may truncate or round seconds per task, which can slightly affect the timing.</small>
+                </p>
             </div>
 
+            <!-- Calculation History -->
             <div class="history-container">
                 <div class="history-header">
                     <h3 class="history-title">Previous Calculations</h3>
@@ -99,9 +112,11 @@
             </div>
         </div>
 
+        <!-- Level Goal Calculator -->
         <div class="calculator-content" data-tab="1">
             <h1>Level Goal Calculator</h1>
             <form id="level-calculator-form" onsubmit="return calculateLevelGoal(event);">
+                <!-- Current Level -->
                 <div class="input-group">
                     <label for="currentLevel">Current Level:</label>
                     <div class="input-wrapper">
@@ -112,6 +127,7 @@
                         <i class="fa-solid fa-star input-icon"></i>
                     </div>
                 </div>
+                <!-- Current XP -->
                 <div class="input-group">
                     <label for="currentXP">Current XP:</label>
                     <div class="input-wrapper">
@@ -122,6 +138,7 @@
                         </button>
                     </div>
                 </div>
+                <!-- Goal Level -->
                 <div class="input-group">
                     <label for="goalLevel">Goal Level:</label>
                     <div class="input-wrapper">
@@ -132,6 +149,7 @@
                         <i class="fa-solid fa-star input-icon"></i>
                     </div>
                 </div>
+                <!-- XP per Action -->
                 <div class="input-group">
                     <label for="xpPerAction">XP per Action:</label>
                     <div class="input-wrapper">
@@ -142,6 +160,7 @@
                         </button>
                     </div>
                 </div>
+                <!-- Buttons -->
                 <div class="button-group">
                     <button type="submit" class="calculate-btn">
                         <i class="fa-solid fa-calculator"></i> Calculate (Enter)
@@ -152,10 +171,12 @@
                 </div>
             </form>
 
+            <!-- Result -->
             <div class="result-container">
                 <input type="text" id="levelResult" class="input" readonly>
             </div>
 
+            <!-- Calculation History -->
             <div class="history-container">
                 <div class="history-header">
                     <h3 class="history-title">Previous Calculations</h3>
@@ -164,33 +185,6 @@
                     </button>
                 </div>
                 <ul id="level-history-list"></ul>
-            </div>
-        </div>
-
-        <!-- Calculator 3 (Coming Soon) -->
-        <div class="calculator-content" data-tab="2">
-            <h1>Calculator 3</h1>
-            <div class="coming-soon">
-                <i class="fa-solid fa-tools"></i>
-                <p>Coming Soon!</p>
-            </div>
-        </div>
-
-        <!-- Calculator 4 (Coming Soon) -->
-        <div class="calculator-content" data-tab="3">
-            <h1>Calculator 4</h1>
-            <div class="coming-soon">
-                <i class="fa-solid fa-tools"></i>
-                <p>Coming Soon!</p>
-            </div>
-        </div>
-
-        <!-- Calculator 5 (Coming Soon) -->
-        <div class="calculator-content" data-tab="4">
-            <h1>Calculator 5</h1>
-            <div class="coming-soon">
-                <i class="fa-solid fa-tools"></i>
-                <p>Coming Soon!</p>
             </div>
         </div>
     </div>
@@ -207,31 +201,7 @@
         </div>
     </div>
 
-    <!-- Add a toggle for animations in the sidebar -->
-<div class="calculator-tabs">
-    <button class="tab-button active" onclick="switchTab(0)">
-        <i class="fa-solid fa-clock"></i> Time Calculator
-    </button>
-    <button class="tab-button" onclick="switchTab(1)">
-        <i class="fa-solid fa-calculator"></i> Goal Calculator
-    </button>
-    <hr />
-    <div class="animation-toggle">
-        <label for="animation-toggle">
-            <input type="checkbox" id="animation-toggle" onchange="toggleAnimation()" checked>
-            Enable Floating Animation
-        </label>
-    </div>
-</div>
-
-<!-- Add a disclaimer below the Time Calculator form -->
-<div class="result-container">
-    <input type="text" id="result" class="input" readonly>
-    <p class="disclaimer">
-        <small>Note: In-game UI may truncate or round seconds per task, which can slightly affect the timing.</small>
-    </p>
-</div>
-
+    <!-- JavaScript -->
     <script src="js/main.js"></script>
 </body>
 </html>
