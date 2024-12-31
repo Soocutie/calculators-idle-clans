@@ -110,6 +110,7 @@ body.light-mode .input-wrapper select.input {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%23333333' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
 }
 
+
 .container {
     background: rgba(68, 68, 68, 0.2);
     padding: 30px;
@@ -122,6 +123,7 @@ body.light-mode .input-wrapper select.input {
     margin-left: 20px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     animation: float 6s ease-in-out infinite;
+    will-change: transform; /* Optimize for floating animation */
     transition: background-color 0.5s ease, box-shadow 0.5s ease;
 }
 
@@ -196,6 +198,7 @@ body.light-mode .input-wrapper select.input {
 
 .tab-button:hover {
     transform: translateX(5px);
+    will-change: transform; /* Optimize hover animation */
 }
 
 .tab-button.active {
@@ -252,6 +255,7 @@ h1 {
     outline: none;
     box-shadow: 0 0 0 2px rgba(255, 0, 157, 0.3);
     transform: translateY(-1px);
+    will-change: transform, box-shadow; /* Optimize focus animation */
 }
 
 .input.invalid {
@@ -269,6 +273,7 @@ h1 {
 
 .input:focus + .input-icon {
     transform: translateY(-50%) scale(1.1);
+    will-change: transform; /* Optimize icon scaling */
 }
 
 .input-wrapper select.input {
@@ -342,6 +347,7 @@ label {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(255, 0, 157, 0.3);
     background: linear-gradient(145deg, #444, #333);
+    will-change: transform, box-shadow, background; /* Optimize hover animation */
 }
 
 .result-container {
@@ -385,6 +391,7 @@ label {
 
 .clear-history-btn:hover {
     transform: scale(1.1);
+    will-change: transform; /* Optimize scaling animation */
 }
 
 #history-list, #level-history-list {
@@ -429,6 +436,7 @@ label {
     transform: translateX(5px);
     background: rgba(255, 255, 255, 0.15);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    will-change: transform, background, box-shadow; /* Optimize hover animation */
 }
 
 .theme-toggle {
@@ -460,12 +468,14 @@ label {
     color: white;
     border-radius: 5px;
     transform: translateX(150%);
-    transition: transform 0.3s ease;
+    will-change: transform, opacity; /* Inform browser of upcoming changes */
+    transition: transform 0.3s ease, opacity 0.3s ease;
     z-index: 1000;
 }
 
 .notification.show {
     transform: translateX(0);
+    opacity: 1;
     animation: pulse 0.3s ease-out;
 }
 
@@ -531,26 +541,81 @@ kbd {
     opacity: 0.9;
 }
 
+.animation-toggle {
+    padding: 10px 15px;
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.animation-toggle input[type="checkbox"] {
+    accent-color: var(--primary-color);
+    cursor: pointer;
+}
+
+/* Style for the disclaimer text */
+.disclaimer {
+    margin-top: 10px;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    text-align: center;
+}
+
+.container.floating {
+    animation: float 6s ease-in-out infinite;
+}
+
+.container:not(.floating) {
+    animation: none;
+}
+
+/* Optimize and consolidate animations */
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @keyframes float {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+    0% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+    100% {
+        transform: translateY(0px);
+    }
 }
 
 @keyframes pulse {
-    0% { transform: scale(0.95); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
+    0% {
+        transform: scale(0.95);
+    }
+    50% {
+        transform: scale(1.05);
+    }
+    100% {
+        transform: scale(1);
+    }
 }
 
 @keyframes tooltipIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 @media (max-width: 480px) {

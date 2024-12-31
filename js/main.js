@@ -23,6 +23,7 @@ const levelXP = {
 
 let calculationHistory = [];
 let levelCalculationHistory = [];
+let lastCalculatedResults = [];
 
 function safelyGetFromStorage(key) {
     try {
@@ -75,6 +76,31 @@ function switchTab(tabIndex) {
 
     safelySetToStorage('activeCalculatorTab', tabIndex);
 }
+
+// Function to toggle floating animation
+function toggleAnimation() {
+    const container = document.querySelector('.container');
+    const isAnimationEnabled = document.getElementById('animation-toggle').checked;
+
+    if (isAnimationEnabled) {
+        container.classList.add('floating');
+    } else {
+        container.classList.remove('floating');
+    }
+
+    safelySetToStorage('animationEnabled', isAnimationEnabled);
+}
+
+// Load animation preference on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const isAnimationEnabled = safelyGetFromStorage('animationEnabled');
+    if (isAnimationEnabled === false) {
+        document.getElementById('animation-toggle').checked = false;
+        document.querySelector('.container').classList.remove('floating');
+    } else {
+        document.querySelector('.container').classList.add('floating');
+    }
+});
 
 function toggleTheme() {
     const body = document.body;

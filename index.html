@@ -207,6 +207,31 @@
         </div>
     </div>
 
+    <!-- Add a toggle for animations in the sidebar -->
+<div class="calculator-tabs">
+    <button class="tab-button active" onclick="switchTab(0)">
+        <i class="fa-solid fa-clock"></i> Time Calculator
+    </button>
+    <button class="tab-button" onclick="switchTab(1)">
+        <i class="fa-solid fa-calculator"></i> Goal Calculator
+    </button>
+    <hr />
+    <div class="animation-toggle">
+        <label for="animation-toggle">
+            <input type="checkbox" id="animation-toggle" onchange="toggleAnimation()" checked>
+            Enable Floating Animation
+        </label>
+    </div>
+</div>
+
+<!-- Add a disclaimer below the Time Calculator form -->
+<div class="result-container">
+    <input type="text" id="result" class="input" readonly>
+    <p class="disclaimer">
+        <small>Note: In-game UI may truncate or round seconds per task, which can slightly affect the timing.</small>
+    </p>
+</div>
+
     <script src="js/main.js"></script>
 </body>
 </html>
